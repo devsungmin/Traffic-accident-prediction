@@ -1,13 +1,38 @@
 <template>
-    <div class="navibar">
-        <v-app-bar absolute color="white">
-            <v-toolbar-title>Traffic accident</v-toolbar-title>
-        </v-app-bar>
-    </div>
+  <div class="navibar">
+    <v-app-bar app color="white">
+      <div class="page-title" @click="goHome()">
+        <span class="lightorange-color">Traffic </span>
+        <span class="darkblue-color">Accident</span>
+      </div>
+      <v-spacer />
+      <v-btn icon @click="$router.push('/upload')">
+        <v-icon>mdi-camera</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-wrench</v-icon>
+      </v-btn>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
 export default {
-    
-}
+  name: "NebBar",
+  methods: {
+    goHome: function () {
+      this.$router.push("/");
+    },
+  },
+};
 </script>
+
+<style lang="scss">
+.page-title {
+  font-weight: bold;
+  font-size: 32px;
+}
+</style>
