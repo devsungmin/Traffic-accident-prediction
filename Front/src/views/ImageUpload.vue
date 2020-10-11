@@ -34,8 +34,8 @@ export default {
       const url = "http://127.0.0.1:3000/upload/1";
       axios.post(url, formData).then((res) => {
         console.log("sucess" + res + "files");
-        this.$router.push("/check");
       });
+      this.$router.push("/check");
     },
   },
 };
