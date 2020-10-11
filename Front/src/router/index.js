@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Main"
 import ImageUpload from "../views/ImageUpload"
+import CheckTrafficAccident from "../views/CheckTrafficAccident"
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,10 @@ const routes = [
     {
         path: "/upload",
         component: ImageUpload
+    },
+    {
+        path: "/check",
+        component: CheckTrafficAccident
     }
 
 ];
