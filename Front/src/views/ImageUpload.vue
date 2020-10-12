@@ -17,6 +17,10 @@
             <span>image upload</span>
           </div>
         </div>
+        <div class="submit-button">
+          <v-btn @click="test()">submit</v-btn>
+        </div>
+        <!-- TODO: 업로드한 이미지 확인 / 다중 이미지 처리 -->
       </div>
     </v-container>
   </v-content>
@@ -30,11 +34,16 @@ export default {
   methods: {
     uploadImages: function (name, files) {
       const formData = new FormData();
+      const url = "http://192.168.0.10:3000/upload/1";
+
       formData.append(name, files[0], files[0].name);
-      const url = "http://127.0.0.1:3000/upload/1";
       axios.post(url, formData).then((res) => {
         console.log("sucess" + res + "files");
       });
+      this.$router.push("/check");
+    },
+    test: function () {
+      console.log("upload image test");
       this.$router.push("/check");
     },
   },
@@ -49,7 +58,7 @@ export default {
 .img-upload {
   outline: 2px dashed;
   width: 100%;
-  height: 500px;
+  height: 300px;
   position: relative;
   background: cornflowerblue;
 }
@@ -64,5 +73,10 @@ export default {
   opacity: 0;
   width: 100%;
   height: 100%;
+}
+
+.submit-button {
+  float: right;
+  margin-top: 20px;
 }
 </style>
