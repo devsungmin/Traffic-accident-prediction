@@ -2,8 +2,7 @@
   <div class="navibar">
     <v-app-bar app color="white">
       <div class="page-title" @click="goHome()">
-        <span class="lightorange-color">Traffic </span>
-        <span class="darkblue-color">Accident</span>
+        <span class="lightorange-color">Car Accident Type & Mutual Negligence Information</span>
       </div>
       <v-spacer />
       <v-btn icon @click="$router.push('/upload')">
@@ -33,6 +32,6 @@ export default {
 <style lang="scss">
 .page-title {
   font-weight: bold;
-  font-size: 32px;
+  font-size: 20px;
 }
 </style>

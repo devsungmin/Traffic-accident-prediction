@@ -51,16 +51,21 @@ export default {
 </script>
 
 <style lang="scss">
+.img-upload-page {
+  text-align: -webkit-center;
+}
+
 .img-upload-page > h2 {
   text-align: center;
 }
 
 .img-upload {
   outline: 2px dashed;
-  width: 100%;
-  height: 300px;
+  width: 80%;
+  height: 400px;
   position: relative;
-  background: cornflowerblue;
+  background: rgb(165, 171, 180);
+  margin-top: 20px;
 }
 
 .input-img-notice {
