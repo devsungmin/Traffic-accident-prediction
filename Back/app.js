@@ -4,6 +4,7 @@ const express = require('express');
 const responseHandler = require('./utils/responseHandler');
 const app = express();
 const routes = require('./routes');
+const sequelize = require('./models').sequelize;
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
@@ -11,6 +12,8 @@ app.get('/', (req, res) => {
         message: "hello Restful api server!!",
     });
 });
+
+sequelize.sync();
 
 app.use("/api", routes);
 

@@ -4,15 +4,15 @@ const express = require('express');
 const image = express.Router({ mergeParams: true });
 const multer = require('multer');
 const imageController = require('../../controllers/imageController');
-const imageNavigator = require('../../middlewares/navigator').image;
 
 const traffic_img_storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let path = req.upload_path;
+        let path = '../storage';
+        // let path = req.img_path;
         cb(null, path);
     },
     filename: (req, file, cb) => {
-        let filename = `${new Date().valueOf()}_` + req.upload_name;
+        let filename = `${new Date().valueOf()}`;
         let mimetype = null;
 
         switch (file.img_type) {
@@ -40,6 +40,12 @@ const traffic_img_upload = multer({
     limits: { fileSize: 3 * 1024 * 1024 }
 })
 
-image.post('/', traffic_img_upload.single('trafficImg'), imageController.uploadImg);
+image.post('/upload', traffic_img_upload.any(), imageController.uploadImg);
+
+image.get('/', (req, res) => {
+    res.json({
+        message: "upload image page"
+    })
+})
 
 module.exports = image;
