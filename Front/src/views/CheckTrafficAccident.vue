@@ -8,14 +8,19 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
-                  <v-img src="https://img5.yna.co.kr/mpic/YH/2020/06/20/MYH20200620007700038_P4.jpg" max-height="300px" max-width="100%" />
+                  <v-img :src="image" max-height="300px" max-width="100%" />
                 </v-col>
               </v-row>
             </v-container>
           </v-card>
         </div>
         <div class="model-traffic">
-          <v-data-table :headers="hearders" :items="dataset" class="elevation-1"> </v-data-table>
+          <v-data-table
+            :headers="hearders"
+            :items="dataset"
+            class="elevation-1"
+          >
+          </v-data-table>
         </div>
       </div>
     </v-container>
@@ -25,6 +30,18 @@
 <script>
 export default {
   name: "CheckTrafficAccident",
+  created() {
+    this.$axios
+      .get(`/image/upload/check`)
+      .then((res) => {
+        if (res.status == 200) {
+          this.image = res.data.image;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   data() {
     return {
       hearders: [

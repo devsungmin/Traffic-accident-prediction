@@ -27,17 +27,14 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "ImageUpload",
   methods: {
     uploadImages: function (name, files) {
       const formData = new FormData();
-      const url = "http://192.168.0.10:3000/upload/1";
 
       formData.append(name, files[0], files[0].name);
-      axios.post(url, formData).then((res) => {
+      this.$axios.post(`/image/upload`, formData).then((res) => {
         console.log("sucess" + res + "files");
       });
       this.$router.push("/check");
