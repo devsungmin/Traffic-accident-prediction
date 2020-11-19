@@ -1,0 +1,12 @@
+{
+    "result": [
+        {
+            "traffic": "intersection",
+            "accuracy": "0.0232423419"
+        },
+        {
+            "traffic": "overtaking",
+            "accuracy": "99.128739171"
+        }
+    ]
+}

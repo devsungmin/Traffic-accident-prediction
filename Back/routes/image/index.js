@@ -7,8 +7,7 @@ const imageController = require('../../controllers/imageController');
 
 const traffic_img_storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        let path = '../storage';
-        // let path = req.img_path;
+        let path = 'storage'
         cb(null, path);
     },
     filename: (req, file, cb) => {
@@ -40,7 +39,8 @@ const traffic_img_upload = multer({
     limits: { fileSize: 3 * 1024 * 1024 }
 })
 
-image.post('/upload', traffic_img_upload.any(), imageController.uploadImg);
+image.post('/upload', traffic_img_upload.single('trafficImg'), imageController.uploadImg);
+image.get('/upload', imageController.viewUploadImage);
 
 image.get('/', (req, res) => {
     res.json({

@@ -5,7 +5,7 @@ const db = {};
 
 let sequelize;
 
-sequelize = new Sequelize('mysql', 'root', 'password', {
+sequelize = new Sequelize('mysql', 'root', 'PW', {
     host: 'localhost',
     dialect: 'mysql'
 

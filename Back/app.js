@@ -6,12 +6,23 @@ const app = express();
 const routes = require('./routes');
 const sequelize = require('./models').sequelize;
 const port = process.env.PORT || 3000;
+const cors = require('cors')
 
 app.get('/', (req, res) => {
     res.json({
         message: "hello Restful api server!!",
     });
 });
+
+//CORS 처리
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+    next();
+});
+
+app.use(cors());
 
 sequelize.sync();
 
