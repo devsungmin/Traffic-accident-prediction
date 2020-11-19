@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container>
       <div class="img-upload-page">
         <h2>ImageUpload Page</h2>
@@ -7,8 +7,7 @@
           <input
             class="input-img"
             type="file"
-            multiple="true"
-            name="myfile"
+            name="trafficImg"
             @change="uploadImages($event.target.name, $event.target.files)"
             @drop="uploadImages($event.target.name, $event.target.files)"
           />
@@ -17,31 +16,31 @@
             <span>image upload</span>
           </div>
         </div>
-        <div class="submit-button">
-          <v-btn @click="test()">submit</v-btn>
-        </div>
-        <!-- TODO: 업로드한 이미지 확인 / 다중 이미지 처리 -->
       </div>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   name: "ImageUpload",
   methods: {
     uploadImages: function (name, files) {
       const formData = new FormData();
 
-      formData.append(name, files[0], files[0].name);
+      formData.append(name, files[0]);
       this.$axios.post(`/image/upload`, formData).then((res) => {
-        console.log("sucess" + res + "files");
+        if (res.status == 200) {
+          Swal.fire({
+            title: "Upload Image",
+            text: "Sucess upload image!",
+            icon: "success",
+          });
+          this.$router.push("/check");
+        }
       });
-      this.$router.push("/check");
-    },
-    test: function () {
-      console.log("upload image test");
-      this.$router.push("/check");
     },
   },
 };

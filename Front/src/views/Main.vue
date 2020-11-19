@@ -1,8 +1,8 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container>
       <div class="main-page">
-        <h2 class="darkblue-color">This page is a service<br />that provides informationon car accident types and mutual negligence 😎</h2>
+        <h2 class="darkblue-color">Hello! 😎</h2>
         <br />
       </div>
       <v-flex md12 xs12 justify-center style="text-align: center">
@@ -15,19 +15,32 @@
           allowfullscreen
         ></iframe>
       </v-flex>
+      <div class="go-upload-img">
+        <v-btn color="primary" @click="goUploadImg()"
+          >교통사고 이미지 업로드</v-btn
+        >
+      </div>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
 export default {
   name: "Main",
   components: {},
+  methods: {
+    goUploadImg: function () {
+      this.$router.push("/upload");
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .main-page {
+  text-align: center;
+}
+.go-upload-img {
   text-align: center;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-container>
       <div class="check-traffic-img">
         <h2>Upload Image</h2>
@@ -8,7 +8,7 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
-                  <v-img :src="image" max-height="300px" max-width="100%" />
+                  <v-img src="img src" max-height="300px" max-width="100%" />
                 </v-col>
               </v-row>
             </v-container>
@@ -36,9 +36,9 @@
                 v-on="on"
                 dark
                 @click="dialog = true"
-                >판례보기</v-btn
-              ></template
-            >
+                >상세 보기</v-btn
+              >
+            </template>
             <v-card>
               <v-toolbar color="primary"
                 ><v-btn icon @click="dialog = false">
@@ -58,23 +58,14 @@
         </div>
       </div>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
 export default {
   name: "CheckTrafficAccident",
   created() {
-    this.$axios
-      .get(`/image/upload/check`)
-      .then((res) => {
-        if (res.status == 200) {
-          this.image = res.data.image;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getResult();
   },
   data() {
     return {
@@ -90,37 +81,31 @@ export default {
           value: "traffic",
         },
         {
-          text: "Negligence Ratio (L:R)",
-          value: "negligence",
-        },
-        {
           text: "Accuracy(%)",
           value: "accuracy",
         },
       ],
-      dataset: [
-        {
-          traffic: "추월 사고",
-          negligence: "80:20",
-          accuracy: "98%",
-        },
-        {
-          traffic: "추돌 사고",
-          negligence: "50:50",
-          accuracy: "80%",
-        },
-        {
-          traffic: "교차로 사고",
-          negligence: "20:80",
-          accuracy: "60%",
-        },
-      ],
+      // 모델 결과 값
+      dataset: [],
     };
   },
-  methods: {},
+  methods: {
+    getResult: function () {
+      this.dataset = [];
+      this.$axios.get(`/result`).then((res) => {
+        console.log(res);
+        let result = res.data.result;
+        for (let i of result) {
+          this.dataset.push({
+            traffic: i.traffic,
+            accuracy: i.accuracy,
+          });
+        }
+      });
+    },
+  },
 };
 </script>
-
 <style lang="scss">
 .check-traffic-img {
   text-align: center;
