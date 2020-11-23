@@ -2,15 +2,16 @@
 
 const Sequelize = require('sequelize');
 const db = {};
+const path = require('path')
+const env = process.env.NODE_ENV || 'development';
+const config = require(path.join(__dirname, '..', 'config', 'config'))[env];
 
-let sequelize;
+let sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-sequelize = new Sequelize('mysql', 'root', 'PW', {
-    host: 'localhost',
-    dialect: 'mysql'
-
-});
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.overtaking = require('./overtaking')(sequelize, Sequelize);
+db.intersection = require('./intersection')(sequelize, Sequelize);
 
 module.exports = db;
