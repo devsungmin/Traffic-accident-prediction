@@ -117,3 +117,6 @@ dist
 
 # Image File
 storage/
+
+#DB_config File 
+config/
