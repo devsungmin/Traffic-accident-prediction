@@ -120,3 +120,7 @@ storage/
 
 #DB_config File 
 config/
+
+#DeepLearning Model CheckPoint
+traffic2/
+training_1./
