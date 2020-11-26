@@ -5,7 +5,6 @@
         <h2>ImageUpload Page</h2>
         <v-col cols="12" v-show="loading">
           <v-progress-linear
-            v-model="traing"
             v-show="loading"
             :active="show"
             indeterminate
@@ -55,6 +54,12 @@ export default {
             icon: "success",
           });
           this.$router.push("/check");
+        } else {
+          Swal.fire({
+            title: "Error!!",
+            text: "Sorry ㅠ.ㅠ",
+            icon: "error",
+          });
         }
       });
     },
