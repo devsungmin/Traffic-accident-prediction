@@ -3,6 +3,15 @@
     <v-container>
       <div class="img-upload-page">
         <h2>ImageUpload Page</h2>
+        <v-col cols="12" v-show="loading">
+          <v-progress-linear
+            v-model="traing"
+            v-show="loading"
+            :active="show"
+            indeterminate
+            color="#f9a11b"
+          ></v-progress-linear>
+        </v-col>
         <div class="img-upload">
           <input
             class="input-img"
@@ -26,9 +35,16 @@ import Swal from "sweetalert2";
 
 export default {
   name: "ImageUpload",
+  data() {
+    return {
+      loading: false,
+      show: true,
+    };
+  },
   methods: {
     uploadImages: function (name, files) {
       const formData = new FormData();
+      this.loading = true;
 
       formData.append(name, files[0]);
       this.$axios.post(`/image/upload`, formData).then((res) => {
@@ -60,7 +76,7 @@ export default {
   width: 80%;
   height: 400px;
   position: relative;
-  background: rgb(165, 171, 180);
+  background: #f9a11b;
   margin-top: 20px;
 }
 
