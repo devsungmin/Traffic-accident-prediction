@@ -2,6 +2,7 @@
 
 const responseHandler = require("../utils/responseHandler");
 const fs = require('fs');
+const models = require('../models')
 
 
 module.exports = {
@@ -15,5 +16,20 @@ module.exports = {
         } catch (err) {
             responseHandler.fail(res, 500, "Processing fail");
         }
-    }
+    },
+
+    information(req, res) {
+        let result = 'results/result.json'
+        const testResult = JSON.parse(fs.readFileSync(result).toString()).result
+        testResult.sort((a, b) => {
+            return a.accuracy > b.accuracy ? -1 : 1;
+        })
+        models.trafficAccident.findOne({ accidentType: testResult[0].traffic })
+            .then(traffic => {
+                const information = traffic.info
+                responseHandler.custom(res, 200, information)
+            });
+
+
+    },
 }
