@@ -124,3 +124,6 @@ config/
 #DeepLearning Model CheckPoint
 traffic2/
 training_1./
+
+# Model result file
+results/
