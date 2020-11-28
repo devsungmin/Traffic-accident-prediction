@@ -28,8 +28,8 @@
         <div class="dialog">
           <v-dialog
             v-model="dialog"
-            fullscreen
             hide-overlay
+            width="800px"
             transition="dialog-bottom-transition"
           >
             <template v-slot:activator="{ on, attrs }">
@@ -53,23 +53,22 @@
               </v-toolbar>
               <v-list>
                 <v-list-item>
-                  <v-list-item-title v-text="item1" />
+                  <v-list-item-title class="information-title" v-text="item1" />
                   <v-list-item v-text="negligence" />
-                  <hr />
                 </v-list-item>
               </v-list>
-
+              <v-divider />
               <v-list>
                 <v-list-item>
-                  <v-list-item-title v-text="item2" />
+                  <v-list-item-title class="information-title" v-text="item2" />
                   <v-list-item v-text="legalBasis" />
                   <hr />
                 </v-list-item>
               </v-list>
-
+              <v-divider />
               <v-list>
                 <v-list-item>
-                  <v-list-item-title v-text="item3" />
+                  <v-list-item-title class="information-title" v-text="item3" />
                   <v-list-item v-text="judicialPrecedent" />
                 </v-list-item>
               </v-list>
@@ -93,11 +92,6 @@ export default {
       item1: "과실비율",
       item2: "법적근거",
       item3: "관련 판례",
-      items: [
-        { title: "과실비율" },
-        { title: "법적근거" },
-        { title: "관련 판례" },
-      ],
       dialog: false,
       hearders: [
         {
@@ -134,9 +128,6 @@ export default {
         this.negligence = res.data[0].negligence;
         this.legalBasis = res.data[1].legalBasis;
         this.judicialPrecedent = res.data[2].judicialPrecedent;
-
-        console.log(this.negligence);
-        console.log("=========");
       });
     },
   },
@@ -157,6 +148,12 @@ export default {
 
 .dialog {
   margin-top: 20px;
+}
+
+.information-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px !important;
 }
 
 #dialog-title {
