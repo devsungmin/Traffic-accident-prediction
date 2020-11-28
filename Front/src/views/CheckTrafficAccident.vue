@@ -2,19 +2,22 @@
   <v-main>
     <v-container>
       <div class="check-traffic-img">
-        <h2>Upload Image</h2>
+        <h2>Check Car Accident Type</h2>
         <div class="upload-img">
           <v-card>
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
-                  <v-img src="img src" max-height="300px" max-width="100%" />
+                  <v-img src=http://localhost:3000/api/image/upload
+                  max-height="300px" max-width="100%" />
                 </v-col>
               </v-row>
             </v-container>
           </v-card>
         </div>
+        <hr />
         <div class="model-traffic">
+          <hr />
           <v-data-table
             :headers="hearders"
             :items="dataset"
@@ -49,8 +52,25 @@
                 >
               </v-toolbar>
               <v-list>
-                <v-list-item v-for="item in items" :key="item.title">
-                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item>
+                  <v-list-item-title v-text="item1" />
+                  <v-list-item v-text="negligence" />
+                  <hr />
+                </v-list-item>
+              </v-list>
+
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title v-text="item2" />
+                  <v-list-item v-text="legalBasis" />
+                  <hr />
+                </v-list-item>
+              </v-list>
+
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title v-text="item3" />
+                  <v-list-item v-text="judicialPrecedent" />
                 </v-list-item>
               </v-list>
             </v-card>
@@ -66,13 +86,17 @@ export default {
   name: "CheckTrafficAccident",
   created() {
     this.getResult();
+    this.getDB();
   },
   data() {
     return {
+      item1: "과실비율",
+      item2: "법적근거",
+      item3: "관련 판례",
       items: [
-        { title: "추월사고" },
-        { title: "추돌사고" },
-        { title: "교차로 사고" },
+        { title: "과실비율" },
+        { title: "법적근거" },
+        { title: "관련 판례" },
       ],
       dialog: false,
       hearders: [
@@ -87,13 +111,15 @@ export default {
       ],
       // 모델 결과 값
       dataset: [],
+      negligence: "",
+      legalBasis: "",
+      judicialPrecedent: "",
     };
   },
   methods: {
     getResult: function () {
       this.dataset = [];
       this.$axios.get(`/result`).then((res) => {
-        console.log(res);
         let result = res.data.result;
         for (let i of result) {
           this.dataset.push({
@@ -101,6 +127,16 @@ export default {
             accuracy: i.accuracy,
           });
         }
+      });
+    },
+    getDB: function () {
+      this.$axios.get(`/result/information`).then((res) => {
+        this.negligence = res.data[0].negligence;
+        this.legalBasis = res.data[1].legalBasis;
+        this.judicialPrecedent = res.data[2].judicialPrecedent;
+
+        console.log(this.negligence);
+        console.log("=========");
       });
     },
   },
