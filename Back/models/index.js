@@ -11,7 +11,6 @@ let sequelize = new Sequelize(config.database, config.username, config.password,
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.overtaking = require('./overtaking')(sequelize, Sequelize);
-db.intersection = require('./intersection')(sequelize, Sequelize);
+db.trafficAccident = require('./trafficAccident')(sequelize, Sequelize);
 
 module.exports = db;
