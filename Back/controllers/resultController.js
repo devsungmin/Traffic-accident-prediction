@@ -20,11 +20,11 @@ module.exports = {
 
     information(req, res) {
         let result = 'results/result.json'
-        const testResult = JSON.parse(fs.readFileSync(result).toString()).result
+        let testResult = JSON.parse(fs.readFileSync(result).toString()).result
         testResult.sort((a, b) => {
             return a.accuracy > b.accuracy ? -1 : 1;
         })
-        models.trafficAccident.findOne({ accidentType: testResult[0].traffic })
+        models.trafficAccident.findOne({ where: { accidentType: testResult[0].traffic } })
             .then(traffic => {
                 const information = traffic.info
                 responseHandler.custom(res, 200, information)
