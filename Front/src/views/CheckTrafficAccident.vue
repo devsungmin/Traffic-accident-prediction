@@ -22,6 +22,7 @@
             :headers="hearders"
             :items="dataset"
             class="elevation-1"
+            hide-default-footer
           >
           </v-data-table>
         </div>
