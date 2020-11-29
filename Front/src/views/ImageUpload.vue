@@ -2,8 +2,12 @@
   <v-main>
     <v-container>
       <div class="img-upload-page">
-        <h2>ImageUpload Page</h2>
+        <h2>사진 업로드 하기</h2>
         <v-col cols="12" v-show="loading">
+          <span
+            >사진에 대한 결과를 가져오고 있습니다.<br />잠시만
+            기다려주세요.</span
+          >
           <v-progress-linear
             v-show="loading"
             :active="show"
@@ -21,7 +25,7 @@
           />
           <div class="input-img-notice">
             <v-icon>mdi-camera</v-icon>
-            <span>image upload</span>
+            <span> 이 곳을 클릭하여 업로드 할 사진을 선택해 주세요.</span>
           </div>
         </div>
       </div>

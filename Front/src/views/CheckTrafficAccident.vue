@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <div class="check-traffic-img">
-        <h2>Check Car Accident Type</h2>
+        <h2>교통사고 유형 확인</h2>
         <div class="upload-img">
           <v-card>
             <v-container fluid>
@@ -34,7 +34,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                color="primary"
+                color="#f9a11b"
                 v-bind="attrs"
                 v-on="on"
                 dark
@@ -43,7 +43,7 @@
               >
             </template>
             <v-card>
-              <v-toolbar color="primary"
+              <v-toolbar color="#f9a11b"
                 ><v-btn icon @click="dialog = false">
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -95,11 +95,11 @@ export default {
       dialog: false,
       hearders: [
         {
-          text: "Type of Accident",
+          text: "사고 유형",
           value: "traffic",
         },
         {
-          text: "Accuracy(%)",
+          text: "정확도(%)",
           value: "accuracy",
         },
       ],
