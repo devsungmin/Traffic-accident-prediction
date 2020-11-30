@@ -119,7 +119,7 @@ dist
 storage/
 
 #DB_config File 
-config/
+config/config.json
 
 #DeepLearning Model CheckPoint
 traffic2/
