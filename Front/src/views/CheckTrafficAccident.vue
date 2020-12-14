@@ -26,6 +26,11 @@
           >
           </v-data-table>
         </div>
+        <div class="result-traffic">
+          <span>사고 유형 : {{ this.trafficName }} / </span>
+          <span>과실 비율 : {{ this.fruitRatio }} / </span>
+          <span>모델 정확도: {{ this.accuracyT }}</span>
+        </div>
         <div class="dialog">
           <v-dialog
             v-model="dialog"
@@ -52,27 +57,38 @@
                   >교통사고 판례 보기</v-toolbar-title
                 >
               </v-toolbar>
-              <v-list>
-                <v-list-item>
-                  <v-list-item-title class="information-title" v-text="item1" />
-                  <v-list-item v-text="negligence" />
-                </v-list-item>
-              </v-list>
-              <v-divider />
-              <v-list>
-                <v-list-item>
-                  <v-list-item-title class="information-title" v-text="item2" />
-                  <v-list-item v-text="legalBasis" />
-                  <hr />
-                </v-list-item>
-              </v-list>
-              <v-divider />
-              <v-list>
-                <v-list-item>
-                  <v-list-item-title class="information-title" v-text="item3" />
-                  <v-list-item v-text="judicialPrecedent" />
-                </v-list-item>
-              </v-list>
+              <div class="traffic-db">
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title
+                      class="information-title"
+                      v-text="item1"
+                    />
+                    <v-list-item v-text="negligence" />
+                  </v-list-item>
+                </v-list>
+                <v-divider />
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title
+                      class="information-title"
+                      v-text="item2"
+                    />
+                    <v-list-item v-text="legalBasis" />
+                    <hr />
+                  </v-list-item>
+                </v-list>
+                <v-divider />
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title
+                      class="information-title"
+                      v-text="item3"
+                    />
+                    <v-list-item v-text="judicialPrecedent" />
+                  </v-list-item>
+                </v-list>
+              </div>
             </v-card>
           </v-dialog>
         </div>
@@ -109,6 +125,9 @@ export default {
       negligence: "",
       legalBasis: "",
       judicialPrecedent: "",
+      fruitRatio: "",
+      trafficName: "",
+      accuracyT: "",
     };
   },
   methods: {
@@ -116,11 +135,17 @@ export default {
       this.dataset = [];
       this.$axios.get(`/result`).then((res) => {
         let result = res.data.result;
+        console.log(result);
         for (let i of result) {
           this.dataset.push({
             traffic: i.traffic,
             accuracy: i.accuracy,
           });
+          if (res.data.result[0].accuracy > res.data.result[1].accuracy) {
+            this.accuracyT = res.data.result[0].accuracy;
+          } else {
+            this.accuracyT = res.data.result[1].accuracy;
+          }
         }
       });
     },
@@ -129,6 +154,8 @@ export default {
         this.negligence = res.data[0].negligence;
         this.legalBasis = res.data[1].legalBasis;
         this.judicialPrecedent = res.data[2].judicialPrecedent;
+        this.fruitRatio = res.data[3].fruitRatio;
+        this.trafficName = res.data[4].trafficName;
       });
     },
   },
@@ -155,6 +182,17 @@ export default {
   text-align: center;
   font-weight: bold;
   font-size: 20px !important;
+}
+
+.result-traffic {
+  font-weight: bold;
+  font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.traffic-db {
+  padding: 20px;
 }
 
 #dialog-title {
